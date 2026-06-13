@@ -1,0 +1,525 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>MediFlow Health - Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Public+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chart-bar-animation {
+            transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .headline-font {
+            font-family: 'Public Sans', sans-serif;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "surface-tint": "#2a5ea5",
+                        "tertiary": "#472a00",
+                        "surface-container": "#e5eeff",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#dce9ff",
+                        "secondary-fixed": "#6ffbbe",
+                        "surface-bright": "#f8f9ff",
+                        "tertiary-container": "#653e00",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#00468c",
+                        "on-surface-variant": "#424751",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-background": "#0b1c30",
+                        "on-secondary-fixed-variant": "#005236",
+                        "secondary-container": "#6cf8bb",
+                        "surface-variant": "#d3e4fe",
+                        "on-tertiary-fixed": "#2a1700",
+                        "primary-container": "#00468c",
+                        "primary": "#003063",
+                        "inverse-surface": "#213145",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-surface": "#0b1c30",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#002113",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#d6e3ff",
+                        "background": "#f8f9ff",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-primary-container": "#8cb6ff",
+                        "on-secondary-container": "#00714d",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "inverse-primary": "#a9c7ff",
+                        "surface": "#f8f9ff",
+                        "on-primary-fixed": "#001b3d",
+                        "outline-variant": "#c2c6d2",
+                        "surface-container-low": "#eff4ff",
+                        "on-tertiary-container": "#faa213",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "outline": "#737782",
+                        "secondary": "#006c49"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "lg": "24px",
+                        "gutter": "24px",
+                        "xl": "40px",
+                        "container-max": "1440px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Public Sans"],
+                        "headline-md": ["Public Sans"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "display-lg": ["Public Sans"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface">
+<!-- NavigationDrawer (JSON: NavigationDrawer) -->
+<aside class="hidden lg:flex flex-col h-full py-lg gap-base bg-surface-container-low dark:bg-surface-container h-full w-72 left-0 top-0 fixed shadow-md z-40">
+<div class="px-gutter mb-lg">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-primary" style="font-size: 32px;">local_hospital</span>
+<span class="font-headline-lg text-headline-lg font-bold text-primary">MediFlow</span>
+</div>
+</div>
+<!-- Profile Section -->
+<div class="flex flex-col px-gutter py-md mb-md">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant">
+<img alt="Dr. Sarah Smith" data-alt="A professional portrait of a senior female cardiologist in her late 40s wearing a clean white lab coat and a stethoscope. She has a confident and compassionate expression, set against a blurred modern hospital corridor with soft, clinical blue and white lighting. The image quality is crisp and professional, reflecting an authoritative healthcare environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoc8m1Q9sYd38xNPQ9Qrz1UiksDuE0CSohf-MaJs0jCUo8HkUaYDzGl8Ad9jNoHK12je_oXZRkI6PS3fuodz4-e7V_Y5JLzzjOXGDc0XvLVTCS2ndnsgBFD7uFJRgGIsnicrSFDeysRNl1AEZyP1NZjrm9S0hknOEPQc7adWrMcMUn3DZlXw9OXXQ0VgEYSqY0Ejp07cAAsYVeSjFluwghQK3b2JI69gzp7EcaktEJRP0UFZTD1vSi8jnBQzbckH9my2B9jTfZlzw">
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface">Dr. Sarah Smith</span>
+<span class="text-xs text-on-surface-variant">Chief Cardiologist</span>
+<span class="text-[10px] text-primary uppercase font-bold tracking-wider">Dept. A-12</span>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-xs">
+<!-- Dashboard (Active) -->
+<a class="flex items-center gap-md px-gutter py-sm bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary font-bold rounded-r-full mr-4 transition-all" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<!-- Patients -->
+<a class="flex items-center gap-md px-gutter py-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-outline-variant rounded-r-full mr-4 transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Patients</span>
+</a>
+<!-- Appointments -->
+<a class="flex items-center gap-md px-gutter py-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-outline-variant rounded-r-full mr-4 transition-all" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-md text-label-md">Appointments</span>
+</a>
+<!-- Medical Records -->
+<a class="flex items-center gap-md px-gutter py-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-outline-variant rounded-r-full mr-4 transition-all" href="#">
+<span class="material-symbols-outlined">folder_shared</span>
+<span class="font-label-md text-label-md">Medical Records</span>
+</a>
+<!-- Pharmacy -->
+<a class="flex items-center gap-md px-gutter py-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-outline-variant rounded-r-full mr-4 transition-all" href="#">
+<span class="material-symbols-outlined">medical_services</span>
+<span class="font-label-md text-label-md">Pharmacy</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-md px-gutter py-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-outline-variant rounded-r-full mr-4 transition-all mt-auto" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:ml-72 min-h-screen">
+<!-- TopAppBar (JSON: TopAppBar) -->
+<header class="bg-surface-bright dark:bg-surface-dim text-primary dark:text-primary-fixed-dim w-full top-0 sticky z-30 border-b border-outline-variant dark:border-outline shadow-sm">
+<div class="flex items-center justify-between px-gutter py-md w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-md">
+<button class="lg:hidden p-2 hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">MediFlow Health</span>
+</div>
+<div class="flex items-center gap-lg">
+<div class="hidden md:flex items-center gap-gutter">
+<span class="text-primary dark:text-primary-fixed-dim font-bold cursor-pointer transition-colors hover:bg-surface-container-low px-3 py-1 rounded-full">Overview</span>
+<span class="text-on-surface-variant dark:text-on-surface-variant cursor-pointer transition-colors hover:bg-surface-container-low px-3 py-1 rounded-full">Reports</span>
+<span class="text-on-surface-variant dark:text-on-surface-variant cursor-pointer transition-colors hover:bg-surface-container-low px-3 py-1 rounded-full">Analytics</span>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface-bright"></span>
+</button>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold cursor-pointer active:scale-95 duration-150">
+                            SS
+                        </div>
+</div>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-gutter max-w-container-max mx-auto space-y-lg">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Hospital Operations</h1>
+<p class="text-body-md text-on-surface-variant">Real-time analytics for MediFlow Central Hospital</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-xs px-md py-base border border-outline text-primary font-label-md rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span> Export Report
+                    </button>
+<button class="flex items-center gap-xs px-md py-base bg-primary text-on-primary font-label-md rounded-lg shadow-sm hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span> New Entry
+                    </button>
+</div>
+</div>
+<!-- Bento Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Total Patients -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-md">
+<div class="p-2 bg-primary-container rounded-lg">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<span class="text-secondary font-label-sm">+12% vs yest.</span>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant mb-xs">Total Patients Today</p>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">1,284</h2>
+</div>
+</div>
+<!-- Active Appointments -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-md">
+<div class="p-2 bg-secondary-container rounded-lg">
+<span class="material-symbols-outlined text-on-secondary-container">calendar_today</span>
+</div>
+<span class="text-on-surface-variant font-label-sm">84 scheduled</span>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant mb-xs">Active Appointments</p>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">342</h2>
+</div>
+</div>
+<!-- Doctor Occupancy -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col justify-between hover:shadow-md transition-shadow border-l-4 border-l-primary">
+<div class="flex items-center justify-between mb-md">
+<div class="p-2 bg-surface-variant rounded-lg">
+<span class="material-symbols-outlined text-primary">stethoscope</span>
+</div>
+<span class="text-error font-label-sm">High Load</span>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant mb-xs">Doctor Occupancy %</p>
+<div class="flex items-end gap-base">
+<h2 class="text-headline-lg font-headline-lg text-on-surface">92.4%</h2>
+<div class="w-full bg-surface-container-high h-2 rounded-full mb-2 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 92%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Waiting Room -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-md">
+<div class="p-2 bg-error-container rounded-lg">
+<span class="material-symbols-outlined text-on-error-container">timer</span>
+</div>
+<span class="text-on-surface-variant font-label-sm">Avg. 18m</span>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant mb-xs">Emergency Waiting</p>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">14</h2>
+</div>
+</div>
+</div>
+<!-- Analytics & Activity Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Weekly Patient Inflow Chart -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="font-headline-md text-headline-md text-on-surface">Weekly Patient Inflow</h3>
+<select class="bg-surface-container-low border-none rounded-lg font-label-sm text-on-surface-variant px-sm py-xs">
+<option>Last 7 Days</option>
+<option>Last 30 Days</option>
+</select>
+</div>
+<div class="h-64 flex items-end justify-between gap-base md:gap-lg px-md pt-md">
+<!-- Monday -->
+<div class="flex flex-col items-center flex-1 gap-sm h-full justify-end group">
+<div class="chart-bar-animation w-full bg-primary-fixed-dim rounded-t-lg group-hover:bg-primary transition-colors relative" style="height: 65%;">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">840</div>
+</div>
+<span class="text-label-sm text-on-surface-variant">Mon</span>
+</div>
+<!-- Tuesday -->
+<div class="flex flex-col items-center flex-1 gap-sm h-full justify-end group">
+<div class="chart-bar-animation w-full bg-primary-fixed-dim rounded-t-lg group-hover:bg-primary transition-colors relative" style="height: 75%;">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">960</div>
+</div>
+<span class="text-label-sm text-on-surface-variant">Tue</span>
+</div>
+<!-- Wednesday -->
+<div class="flex flex-col items-center flex-1 gap-sm h-full justify-end group">
+<div class="chart-bar-animation w-full bg-primary-fixed-dim rounded-t-lg group-hover:bg-primary transition-colors relative" style="height: 85%;">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">1050</div>
+</div>
+<span class="text-label-sm text-on-surface-variant">Wed</span>
+</div>
+<!-- Thursday -->
+<div class="flex flex-col items-center flex-1 gap-sm h-full justify-end group">
+<div class="chart-bar-animation w-full bg-primary-fixed-dim rounded-t-lg group-hover:bg-primary transition-colors relative" style="height: 60%;">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">780</div>
+</div>
+<span class="text-label-sm text-on-surface-variant">Thu</span>
+</div>
+<!-- Friday -->
+<div class="flex flex-col items-center flex-1 gap-sm h-full justify-end group">
+<div class="chart-bar-animation w-full bg-primary-fixed-dim rounded-t-lg group-hover:bg-primary transition-colors relative" style="height: 95%;">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">1284</div>
+</div>
+<span class="text-label-sm text-on-surface-variant">Fri</span>
+</div>
+<!-- Saturday -->
+<div class="flex flex-col items-center flex-1 gap-sm h-full justify-end group">
+<div class="chart-bar-animation w-full bg-primary-fixed-dim rounded-t-lg group-hover:bg-primary transition-colors relative" style="height: 45%;">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">540</div>
+</div>
+<span class="text-label-sm text-on-surface-variant">Sat</span>
+</div>
+<!-- Sunday -->
+<div class="flex flex-col items-center flex-1 gap-sm h-full justify-end group">
+<div class="chart-bar-animation w-full bg-primary-fixed-dim rounded-t-lg group-hover:bg-primary transition-colors relative" style="height: 35%;">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">420</div>
+</div>
+<span class="text-label-sm text-on-surface-variant">Sun</span>
+</div>
+</div>
+</div>
+<!-- Recent Activity Log -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="font-headline-md text-headline-md text-on-surface">Recent Activity</h3>
+<span class="text-primary text-label-sm cursor-pointer hover:underline">View All</span>
+</div>
+<div class="flex-1 overflow-y-auto space-y-md pr-2">
+<!-- Activity Item 1 -->
+<div class="flex gap-md group">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+</div>
+<div class="w-px h-full bg-outline-variant mt-md group-last:hidden"></div>
+</div>
+<div class="pb-md">
+<p class="text-body-sm text-on-surface"><span class="font-bold">New Registration:</span> Marcus Thorne (ID: 4429)</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wide mt-1">2 minutes ago • Front Desk</p>
+</div>
+</div>
+<!-- Activity Item 2 -->
+<div class="flex gap-md group">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-error-container flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</div>
+<div class="w-px h-full bg-outline-variant mt-md group-last:hidden"></div>
+</div>
+<div class="pb-md">
+<p class="text-body-sm text-on-surface"><span class="font-bold">Booking Cancelled:</span> Cardiology Consult - Dr. Peters</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wide mt-1">15 minutes ago • Patient Portal</p>
+</div>
+</div>
+<!-- Activity Item 3 -->
+<div class="flex gap-md group">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</div>
+<div class="w-px h-full bg-outline-variant mt-md group-last:hidden"></div>
+</div>
+<div class="pb-md">
+<p class="text-body-sm text-on-surface"><span class="font-bold">Records Updated:</span> MRI Scan uploaded for Sarah Jenkins</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wide mt-1">45 minutes ago • Radiology Dept.</p>
+</div>
+</div>
+<!-- Activity Item 4 -->
+<div class="flex gap-md group">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[18px]">notification_important</span>
+</div>
+<div class="w-px h-full bg-outline-variant mt-md group-last:hidden"></div>
+</div>
+<div class="pb-md">
+<p class="text-body-sm text-on-surface"><span class="font-bold">Urgent Alert:</span> ICU Bed 4 - Vitals Deviation</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wide mt-1">1 hour ago • Auto-System</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Departmental Summary (Custom Component) -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-lg">Departmental Overview</h3>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="py-md font-label-md text-on-surface-variant">Department</th>
+<th class="py-md font-label-md text-on-surface-variant">Lead Doctor</th>
+<th class="py-md font-label-md text-on-surface-variant">Patients</th>
+<th class="py-md font-label-md text-on-surface-variant">Status</th>
+<th class="py-md font-label-md text-on-surface-variant">Performance</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-md">
+<div class="flex items-center gap-base">
+<div class="w-2 h-8 bg-primary rounded-full"></div>
+<span class="font-label-md">Cardiology</span>
+</div>
+</td>
+<td class="py-md text-body-sm">Dr. Sarah Smith</td>
+<td class="py-md text-body-sm">124</td>
+<td class="py-md">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-xs font-bold">Stable</span>
+</td>
+<td class="py-md">
+<div class="w-32 bg-surface-container-high h-1.5 rounded-full">
+<div class="bg-secondary h-full rounded-full" style="width: 88%"></div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-md">
+<div class="flex items-center gap-base">
+<div class="w-2 h-8 bg-secondary rounded-full"></div>
+<span class="font-label-md">Pediatrics</span>
+</div>
+</td>
+<td class="py-md text-body-sm">Dr. James Wilson</td>
+<td class="py-md text-body-sm">82</td>
+<td class="py-md">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-xs font-bold">Stable</span>
+</td>
+<td class="py-md">
+<div class="w-32 bg-surface-container-high h-1.5 rounded-full">
+<div class="bg-secondary h-full rounded-full" style="width: 94%"></div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-md">
+<div class="flex items-center gap-base">
+<div class="w-2 h-8 bg-error rounded-full"></div>
+<span class="font-label-md">Emergency</span>
+</div>
+</td>
+<td class="py-md text-body-sm">Dr. Elena Rodriguez</td>
+<td class="py-md text-body-sm">45</td>
+<td class="py-md">
+<span class="px-3 py-1 bg-error-container text-on-error-container rounded-full text-xs font-bold">Critical</span>
+</td>
+<td class="py-md">
+<div class="w-32 bg-surface-container-high h-1.5 rounded-full">
+<div class="bg-error h-full rounded-full" style="width: 62%"></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Footer Spacer -->
+<div class="h-20 lg:hidden"></div>
+</main>
+<!-- BottomNavBar for Mobile (JSON: BottomNavBar) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-lowest dark:bg-inverse-surface flex justify-around items-center px-sm pb-4 pt-2 border-t border-outline-variant dark:border-outline shadow-lg z-50">
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary-fixed-dim text-on-secondary-container dark:text-on-secondary-fixed rounded-xl p-2 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm-mobile">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant p-2 active:scale-90 transition-transform duration-200 hover:text-primary" href="#">
+<span class="material-symbols-outlined">event</span>
+<span class="font-label-sm text-label-sm-mobile">Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant p-2 active:scale-90 transition-transform duration-200 hover:text-primary" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-label-sm text-label-sm-mobile">Records</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant p-2 active:scale-90 transition-transform duration-200 hover:text-primary" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm-mobile">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple Micro-interaction for Stats Cards
+        document.querySelectorAll('.group').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                // Potential for dynamic JS interactions
+            });
+        });
+
+        // Simulating data updates
+        const updateStats = () => {
+            const emergencyWaiting = document.querySelector('h2:nth-of-type(4)');
+            if (emergencyWaiting) {
+                const current = parseInt(emergencyWaiting.innerText);
+                const randomChange = Math.random() > 0.8 ? (Math.random() > 0.5 ? 1 : -1) : 0;
+                emergencyWaiting.innerText = Math.max(0, current + randomChange);
+            }
+        };
+
+        setInterval(updateStats, 5000);
+    </script>
+</body></html>

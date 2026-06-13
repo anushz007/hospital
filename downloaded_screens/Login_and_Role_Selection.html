@@ -1,0 +1,315 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>MediFlow Health - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "surface-tint": "#2a5ea5",
+                        "tertiary": "#472a00",
+                        "surface-container": "#e5eeff",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#dce9ff",
+                        "secondary-fixed": "#6ffbbe",
+                        "surface-bright": "#f8f9ff",
+                        "tertiary-container": "#653e00",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#00468c",
+                        "on-surface-variant": "#424751",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-background": "#0b1c30",
+                        "on-secondary-fixed-variant": "#005236",
+                        "secondary-container": "#6cf8bb",
+                        "surface-variant": "#d3e4fe",
+                        "on-tertiary-fixed": "#2a1700",
+                        "primary-container": "#00468c",
+                        "primary": "#003063",
+                        "inverse-surface": "#213145",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-surface": "#0b1c30",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#002113",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#d6e3ff",
+                        "background": "#f8f9ff",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-primary-container": "#8cb6ff",
+                        "on-secondary-container": "#00714d",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "inverse-primary": "#a9c7ff",
+                        "surface": "#f8f9ff",
+                        "on-primary-fixed": "#001b3d",
+                        "outline-variant": "#c2c6d2",
+                        "surface-container-low": "#eff4ff",
+                        "on-tertiary-container": "#faa213",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "outline": "#737782",
+                        "secondary": "#006c49"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "lg": "24px",
+                        "gutter": "24px",
+                        "xl": "40px",
+                        "container-max": "1440px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Public Sans"],
+                        "headline-md": ["Public Sans"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .role-pill-active {
+            background-color: #00468c;
+            color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            transform: scale(1.02);
+        }
+        .login-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes staggerIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .stagger-item {
+            opacity: 0;
+            animation: staggerIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .btn-shimmer {
+            background: linear-gradient(90deg, #003063 0%, #00468c 50%, #003063 100%);
+            background-size: 200% 100%;
+        }
+        .btn-shimmer:hover {
+            animation: shimmer 2s infinite linear;
+        }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-surface min-h-screen flex flex-col">
+<main class="flex-grow flex items-center justify-center relative overflow-hidden px-gutter py-xl">
+<!-- Atmospheric Background Element -->
+<div class="absolute inset-0 -z-10 overflow-hidden">
+<div class="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-surface-container blur-[120px] opacity-60"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-surface-variant blur-[120px] opacity-40"></div>
+</div>
+<div class="w-full max-w-[1200px] grid grid-cols-1 lg:grid-cols-12 gap-xl items-center">
+<!-- Left Side: Branding and Hero -->
+<div class="hidden lg:flex lg:col-span-6 flex-col space-y-lg pr-xl animate-fade-in-up">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[48px]" data-icon="local_hospital">local_hospital</span>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">MediFlow Health</h1>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Precision Healthcare <br><span class="text-secondary">Management Simplified.</span></h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+                    Empowering medical professionals with intelligent workflows and patients with compassionate digital care portals. Sign in to access your specialized dashboard.
+                </p>
+<div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-xl border border-outline-variant transition-transform duration-500 hover:scale-[1.02]">
+<img alt="Modern Hospital Infrastructure" class="w-full h-full object-cover" data-alt="A clean, high-tech hospital corridor with soft, diffused blue lighting and clinical white surfaces. The scene features a blurred medical professional walking in the distance, conveying a sense of authoritative calm and modern technological competence. The overall mood is sterile yet professional and reassuring, aligning with a corporate healthcare aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKCcBxTipVm8aRvZlfXr122aoqenRTa5xYBJqQb3zp92mejjneAZ_rrPlav59BMl9lnHDD6ohXkr5w3BHOcVkiVdqXcxbeYy6XUElXtwVnDPlBbnzJAFssOI96R2X_VwGUlLJf7rRaoDaXs-2OWGsGVC8JDoCMwVq7Pmx69KEGQhMlk9OFwpETOP-6HA0a0Di5DCx5nTwySWXAC9A6WIaw9wgsIETQjtsRT-KzFj2RCmCxvwnF4BYh02zf8-IL2VUWDbyZT8ZU7qI">
+</div>
+</div>
+<!-- Right Side: Login Form -->
+<div class="lg:col-span-6 flex justify-center">
+<div class="login-card w-full max-w-[480px] p-xl rounded-xl border border-outline-variant shadow-lg flex flex-col animate-fade-in-up">
+<!-- Mobile Branding -->
+<div class="lg:hidden flex flex-col items-center mb-lg">
+<span class="material-symbols-outlined text-primary text-[40px] mb-2" data-icon="local_hospital">local_hospital</span>
+<h1 class="font-headline-md text-headline-md text-primary font-bold">MediFlow Health</h1>
+</div>
+<div class="text-center lg:text-left mb-xl stagger-item" style="animation-delay: 0.1s">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Welcome Back</h3>
+<p class="font-body-md text-on-surface-variant">Please select your role and sign in to continue.</p>
+</div>
+<!-- Role Selector (Segmented Control) -->
+<div class="mb-xl stagger-item" style="animation-delay: 0.2s">
+<label class="font-label-sm text-label-sm text-outline mb-base block">SELECT YOUR ROLE</label>
+<div class="bg-surface-container-low p-1.5 rounded-lg flex items-center gap-1 border border-outline-variant">
+<button class="role-btn flex-1 py-2 rounded-md font-label-md text-label-md transition-all duration-300 role-pill-active active:scale-95" id="role-patient" onclick="selectRole('patient')">
+                                Patient
+                            </button>
+<button class="role-btn flex-1 py-2 rounded-md font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-300 active:scale-95" id="role-doctor" onclick="selectRole('doctor')">
+                                Doctor
+                            </button>
+<button class="role-btn flex-1 py-2 rounded-md font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-300 active:scale-95" id="role-admin" onclick="selectRole('admin')">
+                                Admin
+                            </button>
+</div>
+</div>
+<!-- Input Fields -->
+<form class="space-y-lg">
+<div class="flex flex-col gap-base stagger-item" style="animation-delay: 0.3s">
+<label class="font-label-sm text-label-sm text-on-surface-variant transition-colors group-focus-within:text-primary" for="email">Email Address</label>
+<div class="relative flex items-center group">
+<span class="material-symbols-outlined absolute left-4 text-outline transition-colors group-focus-within:text-primary" data-icon="mail">mail</span>
+<input class="w-full h-[52px] pl-12 pr-4 rounded-lg border border-outline focus:border-primary focus:ring-2 focus:ring-primary/20 bg-transparent font-body-md transition-all duration-300 outline-none" id="email" placeholder="patient.john@gmail.com" type="email">
+</div>
+</div>
+<div class="flex flex-col gap-base stagger-item" style="animation-delay: 0.4s">
+<label class="font-label-sm text-label-sm text-on-surface-variant transition-colors group-focus-within:text-primary" for="password">Password</label>
+<div class="relative flex items-center group">
+<span class="material-symbols-outlined absolute left-4 text-outline transition-colors group-focus-within:text-primary" data-icon="lock">lock</span>
+<input class="w-full h-[52px] pl-12 pr-12 rounded-lg border border-outline focus:border-primary focus:ring-2 focus:ring-primary/20 bg-transparent font-body-md transition-all duration-300 outline-none" id="password" placeholder="••••••••" type="password">
+<button class="absolute right-4 text-outline hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+<div class="flex justify-end">
+<a class="font-label-sm text-label-sm text-primary hover:underline transition-all" href="#">Forgot password?</a>
+</div>
+</div>
+<button class="w-full h-[52px] bg-primary text-on-primary rounded-lg font-label-md text-label-md shadow-md hover:shadow-lg transition-all active:scale-[0.98] duration-300 flex items-center justify-center gap-2 btn-shimmer stagger-item overflow-hidden relative" style="animation-delay: 0.5s" type="submit">
+<span class="relative z-10 flex items-center gap-2">
+                                Sign In to Portal
+                                <span class="material-symbols-outlined animate-pulse" data-icon="login">login</span>
+</span>
+</button>
+</form>
+<!-- Divider -->
+<div class="flex items-center my-xl stagger-item" style="animation-delay: 0.6s">
+<div class="flex-grow border-t border-outline-variant"></div>
+<span class="px-4 font-label-sm text-label-sm text-outline">OR</span>
+<div class="flex-grow border-t border-outline-variant"></div>
+</div>
+<!-- Google Login -->
+<button class="w-full h-[52px] bg-surface-bright border border-outline-variant text-on-surface-variant rounded-lg font-label-md text-label-md flex items-center justify-center gap-3 hover:bg-surface-container-high hover:-translate-y-0.5 hover:shadow-sm transition-all active:scale-[0.98] stagger-item" style="animation-delay: 0.7s">
+<svg class="w-5 h-5" viewBox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 12.16-4.53z" fill="#EA4335"></path>
+</svg>
+                        Sign in with Google
+                    </button>
+<div class="mt-xl text-center stagger-item" style="animation-delay: 0.8s">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                            New to MediFlow? <a class="text-primary font-bold hover:underline transition-all" href="#">Create an account</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Simple Footer for Transactional Page -->
+<footer class="py-md px-gutter flex flex-col md:flex-row justify-between items-center gap-base border-t border-outline-variant bg-surface">
+<p class="font-label-sm text-label-sm text-outline">© 2024 MediFlow Health Systems. All rights reserved.</p>
+<div class="flex gap-lg">
+<a class="font-label-sm text-label-sm text-outline hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-outline hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-outline hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</footer>
+<script>
+        function selectRole(role) {
+            // Remove active classes from all buttons
+            const buttons = document.querySelectorAll('.role-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('role-pill-active');
+                btn.classList.remove('text-on-primary');
+                btn.classList.add('text-on-surface-variant');
+                btn.classList.add('hover:bg-surface-variant');
+            });
+
+            // Add active class to selected button
+            const selectedBtn = document.getElementById(`role-${role}`);
+            selectedBtn.classList.add('role-pill-active');
+            selectedBtn.classList.remove('text-on-surface-variant');
+            selectedBtn.classList.remove('hover:bg-surface-variant');
+
+            // Dynamic UI updates based on role with small delay for smoother feel
+            const emailInput = document.getElementById('email');
+            setTimeout(() => {
+                if (role === 'doctor') {
+                    emailInput.placeholder = 'dr.smith@mediflow.com';
+                } else if (role === 'patient') {
+                    emailInput.placeholder = 'patient.john@gmail.com';
+                } else {
+                    emailInput.placeholder = 'admin.it@mediflow.org';
+                }
+            }, 50);
+        }
+
+        // Card floating effect
+        document.addEventListener('mousemove', (e) => {
+            const card = document.querySelector('.login-card');
+            if (window.innerWidth > 1024) {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 80;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 80;
+                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            }
+        });
+    </script>
+</body></html>

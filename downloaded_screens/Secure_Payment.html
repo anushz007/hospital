@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Secure Payment | MediFlow Health</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Public+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#ffddb8",
+                      "on-primary-container": "#8cb6ff",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed": "#002113",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "surface-container-lowest": "#ffffff",
+                      "outline-variant": "#c2c6d2",
+                      "secondary-fixed": "#6ffbbe",
+                      "surface-tint": "#2a5ea5",
+                      "inverse-primary": "#a9c7ff",
+                      "surface": "#f8f9ff",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "tertiary-container": "#653e00",
+                      "on-surface-variant": "#424751",
+                      "surface-bright": "#f8f9ff",
+                      "primary-container": "#00468c",
+                      "on-tertiary-container": "#faa213",
+                      "surface-container-highest": "#d3e4fe",
+                      "background": "#f8f9ff",
+                      "secondary": "#006c49",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed-dim": "#a9c7ff",
+                      "surface-container-low": "#eff4ff",
+                      "on-background": "#0b1c30",
+                      "secondary-fixed-dim": "#4edea3",
+                      "surface-dim": "#cbdbf5",
+                      "on-error": "#ffffff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "secondary-container": "#6cf8bb",
+                      "on-secondary-container": "#00714d",
+                      "surface-container": "#e5eeff",
+                      "primary-fixed": "#d6e3ff",
+                      "outline": "#737782",
+                      "on-tertiary-fixed": "#2a1700",
+                      "surface-container-high": "#dce9ff",
+                      "on-secondary-fixed-variant": "#005236",
+                      "on-secondary": "#ffffff",
+                      "on-primary-fixed": "#001b3d",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed-variant": "#00468c",
+                      "inverse-surface": "#213145",
+                      "tertiary": "#472a00",
+                      "error": "#ba1a1a",
+                      "error-container": "#ffdad6",
+                      "on-surface": "#0b1c30",
+                      "primary": "#003063",
+                      "surface-variant": "#d3e4fe"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "xl": "40px",
+                      "md": "16px",
+                      "base": "8px",
+                      "gutter": "24px",
+                      "container-max": "1440px",
+                      "lg": "24px",
+                      "sm": "12px"
+              },
+              "fontFamily": {
+                      "label-sm": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-lg-mobile": ["Public Sans"],
+                      "body-sm": ["Inter"],
+                      "headline-md": ["Public Sans"],
+                      "display-lg": ["Public Sans"],
+                      "headline-lg": ["Public Sans"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .bento-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .bento-card:hover {
+            transform: translateY(-2px);
+        }
+        .payment-option:has(input:checked) {
+            border-color: #003063;
+            background-color: #eff4ff;
+        }
+      </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-32">
+<!-- Header (Transactional - No Global Nav) -->
+<header class="w-full top-0 sticky z-40 bg-surface-bright shadow-sm border-b border-outline-variant">
+<div class="flex items-center justify-between px-gutter py-md w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-base cursor-pointer active:scale-95 duration-150 group">
+<span class="material-symbols-outlined text-primary group-hover:bg-surface-container-low p-2 rounded-full transition-colors">arrow_back</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Secure Payment</h1>
+</div>
+<div class="flex items-center gap-xs text-secondary font-label-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span class="uppercase tracking-wider">Encrypted</span>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-gutter py-lg grid grid-cols-1 lg:grid-cols-12 gap-lg">
+<!-- Summary Section (Asymmetric Left) -->
+<section class="lg:col-span-5 flex flex-col gap-lg">
+<div class="bento-card bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant">
+<h2 class="font-headline-md text-headline-md text-primary mb-md">Appointment Summary</h2>
+<!-- Doctor Card -->
+<div class="flex items-center gap-md p-md bg-surface-container-low rounded-lg border-l-4 border-primary">
+<img alt="Dr. James Wilson" class="w-16 h-16 rounded-full object-cover border-2 border-surface-bright" data-alt="A professional portrait of Dr. James Wilson, a senior cardiologist with a kind and authoritative expression, wearing a crisp white medical coat and a stethoscope. The background is a clean, modern clinical office with soft blue and white tones, reflecting a high-end medical environment. The lighting is bright and professional, emphasizing trust and precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFuhJBFrprvNhtpvbs81ErIizS5g6pnzDR8BGugnvvDyGKuCaqzGLAxhp-FJFbBRHYeQwIRKjhsLCukob1fVjmXWUMK_fKSriZuQqHngcJpFBe2EoBlGWbVs5mWFOkzAaIoiJeS5cDAHexGxLPP7qu9W3wIpo_2_LguIgtLxETrB31526KT-pcGRLX8RhsSjKKPz9pmDFdkC1j-rzAg2uFA26DxCS3HHRSHEicnsJM7Dq22U_ucGZzPudBc0S2nPdBHawajqe3Jns"/>
+<div>
+<p class="font-label-md text-on-surface">Dr. James Wilson</p>
+<p class="text-on-surface-variant font-body-sm">Cardiology Department</p>
+</div>
+</div>
+<!-- Schedule Details -->
+<div class="mt-lg space-y-sm">
+<div class="flex justify-between items-center py-base border-b border-outline-variant">
+<span class="text-on-surface-variant font-label-md">Date &amp; Time</span>
+<span class="text-on-surface font-body-md font-semibold">Oct 24, 2024 • 10:30 AM</span>
+</div>
+<div class="flex justify-between items-center py-base border-b border-outline-variant">
+<span class="text-on-surface-variant font-label-md">Consultation Fee</span>
+<span class="text-on-surface font-body-md font-semibold">$150.00</span>
+</div>
+<div class="flex justify-between items-center py-base pt-md">
+<span class="text-on-surface font-headline-md">Total Amount</span>
+<span class="text-primary font-headline-md">$150.00</span>
+</div>
+</div>
+</div>
+<!-- Trust Signals -->
+<div class="grid grid-cols-2 gap-md">
+<div class="bg-surface-container-high p-md rounded-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<p class="font-label-sm text-on-secondary-fixed-variant">SSL Secure Connection</p>
+</div>
+<div class="bg-surface-container-high p-md rounded-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">shield_with_heart</span>
+<p class="font-label-sm text-on-secondary-fixed-variant">HIPAA Compliant</p>
+</div>
+</div>
+</section>
+<!-- Payment Methods (Bento Right) -->
+<section class="lg:col-span-7 flex flex-col gap-lg">
+<div class="bento-card bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant">
+<h2 class="font-headline-md text-headline-md text-primary mb-lg">Choose Payment Method</h2>
+<!-- Method Toggles -->
+<div class="space-y-md">
+<!-- Google Pay (Primary) -->
+<label class="payment-option flex items-center justify-between p-md border-2 border-outline-variant rounded-xl cursor-pointer transition-all hover:bg-surface-container-low active:scale-[0.98]">
+<div class="flex items-center gap-md">
+<input checked="" class="w-5 h-5 text-primary border-outline-variant focus:ring-primary" name="payment_method" type="radio" value="google_pay"/>
+<span class="font-label-md text-on-surface flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span> Google Pay
+                            </span>
+</div>
+<div class="bg-white px-3 py-1 rounded shadow-sm border border-outline-variant font-bold text-gray-700">GPay</div>
+</label>
+<!-- Credit/Debit Card -->
+<div class="space-y-md">
+<label class="payment-option flex items-center justify-between p-md border-2 border-outline-variant rounded-xl cursor-pointer transition-all hover:bg-surface-container-low">
+<div class="flex items-center gap-md">
+<input class="w-5 h-5 text-primary border-outline-variant focus:ring-primary" id="card_radio" name="payment_method" type="radio" value="card"/>
+<span class="font-label-md text-on-surface flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary">credit_card</span> Credit or Debit Card
+                                </span>
+</div>
+<div class="flex gap-xs">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">payment</span>
+</div>
+</label>
+<!-- Card Fields (Expanded logic) -->
+<div class="bg-surface-container-low p-lg rounded-xl border border-outline-variant space-y-md" id="card_details">
+<div class="space-y-xs">
+<label class="font-label-sm text-on-surface-variant" for="card_number">Card Number</label>
+<div class="relative">
+<input class="w-full h-[45px] px-md rounded-lg border border-outline-variant bg-surface-bright focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="card_number" placeholder="0000 0000 0000 0000" type="text"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">credit_card</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="space-y-xs">
+<label class="font-label-sm text-on-surface-variant" for="expiry">Expiry Date</label>
+<input class="w-full h-[45px] px-md rounded-lg border border-outline-variant bg-surface-bright focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="expiry" placeholder="MM/YY" type="text"/>
+</div>
+<div class="space-y-xs">
+<label class="font-label-sm text-on-surface-variant" for="cvv">CVV</label>
+<input class="w-full h-[45px] px-md rounded-lg border border-outline-variant bg-surface-bright focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" id="cvv" placeholder="123" type="password"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Apple Pay -->
+<label class="payment-option flex items-center justify-between p-md border-2 border-outline-variant rounded-xl cursor-pointer transition-all hover:bg-surface-container-low active:scale-[0.98]">
+<div class="flex items-center gap-md">
+<input class="w-5 h-5 text-primary border-outline-variant focus:ring-primary" name="payment_method" type="radio" value="apple_pay"/>
+<span class="font-label-md text-on-surface flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary">contactless</span> Apple Pay
+                            </span>
+</div>
+<div class="bg-black text-white px-3 py-1 rounded shadow-sm font-bold">Apple Pay</div>
+</label>
+</div>
+</div>
+<!-- Notice -->
+<div class="p-md bg-primary-container/10 border border-primary-container rounded-lg flex gap-md">
+<span class="material-symbols-outlined text-primary">info</span>
+<p class="text-body-sm text-on-primary-fixed-variant">
+                    Your appointment will be instantly confirmed upon successful payment. A digital receipt will be sent to your registered email address.
+                </p>
+</div>
+</section>
+</main>
+<!-- Fixed Footer Action -->
+<footer class="fixed bottom-0 w-full bg-surface-container-lowest border-t border-outline-variant shadow-lg z-50">
+<div class="max-w-container-max mx-auto px-gutter py-md flex items-center justify-between gap-lg">
+<div class="hidden md:block">
+<p class="text-on-surface-variant font-label-sm">Total Due</p>
+<p class="text-primary font-headline-md font-bold">$150.00</p>
+</div>
+<button class="w-full md:w-auto bg-primary text-on-primary px-xl py-md rounded-lg font-label-md flex items-center justify-center gap-base active:scale-95 transition-transform shadow-md hover:bg-primary/90">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+                Pay &amp; Confirm • $150.00
+            </button>
+</div>
+</footer>
+<script>
+        // Simple Interaction logic for card fields expansion
+        const cardRadio = document.getElementById('card_radio');
+        const cardDetails = document.getElementById('card_details');
+        const allRadios = document.querySelectorAll('input[name="payment_method"]');
+
+        const updateVisibility = () => {
+            if (cardRadio.checked) {
+                cardDetails.style.display = 'block';
+                cardDetails.classList.add('animate-fade-in');
+            } else {
+                cardDetails.style.display = 'none';
+            }
+        };
+
+        allRadios.forEach(radio => {
+            radio.addEventListener('change', updateVisibility);
+        });
+
+        // Initialize
+        updateVisibility();
+
+        // Navigation Back logic placeholder
+        document.querySelector('header .group').addEventListener('click', () => {
+            console.log('Navigating back...');
+        });
+    </script>
+<style>
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fade-in 0.3s ease-out forwards;
+        }
+    </style>
+</body></html>
