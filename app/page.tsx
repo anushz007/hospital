@@ -12,10 +12,19 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [error, setError] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     setProfiles(db.getProfiles());
+    if (!localStorage.getItem("hideBuilderPopup")) {
+      setTimeout(() => setShowPopup(true), 800);
+    }
   }, []);
+
+  const closePopup = () => {
+    setShowPopup(false);
+    localStorage.setItem("hideBuilderPopup", "true");
+  };
 
   const handleRoleChange = (newRole: "patient" | "doctor" | "admin") => {
     setRole(newRole);
@@ -443,5 +452,46 @@ export default function LoginPage() {
         </div>
       </footer>
     </div>{/* end root flex-col */}
+
+    {/* ── Builder Acknowledgement Popup ── */}
+    {showPopup && (
+      <div
+        className="fixed bottom-6 left-6 md:bottom-8 md:left-8 z-[9999] max-w-[340px] p-5 rounded-2xl shadow-2xl flex flex-col gap-3"
+        style={{
+          background: "rgba(30, 10, 0, 0.75)",
+          backdropFilter: "blur(24px)",
+          WebkitBackdropFilter: "blur(24px)",
+          border: "1px solid rgba(255, 200, 160, 0.2)",
+          animation: "fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+          boxShadow: "0 24px 64px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)",
+        }}
+      >
+        <button
+          onClick={closePopup}
+          className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-full transition-all hover:bg-white/10"
+          style={{ color: "rgba(255,255,255,0.5)" }}
+        >
+          <span className="material-symbols-outlined text-sm">close</span>
+        </button>
+
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+            style={{ background: "linear-gradient(135deg, #CF6B3E, #7a2c00)" }}>
+            <span className="material-symbols-outlined text-white text-lg">code_blocks</span>
+          </div>
+          <div>
+            <p className="font-headline text-sm font-bold text-white">Problem Solved. 🚀</p>
+            <p className="font-label text-[10px] uppercase tracking-widest mt-0.5" style={{ color: "#F5A878" }}>
+              Hospital Chaos
+            </p>
+          </div>
+        </div>
+
+        <p className="font-body text-xs leading-relaxed" style={{ color: "rgba(255, 230, 210, 0.85)" }}>
+          Built by <strong className="text-white font-semibold">ANUSH P ASHOK</strong> to streamline hospital management, simplify scheduling, and make patient care effortless.
+        </p>
+      </div>
+    )}
+
   </>);
 }
